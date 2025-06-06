@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2>Mis tickets</h2>
+  {% if tickets %}
+    <table class="table table-bordered table-hover">
+      <thead class="table-light">
+        <tr>
+          <th>ID</th>
+          <th>Título</th>
+          <th>Estado</th>
+          <th>Prioridad</th>
+          <th>Fecha</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for ticket in tickets %}
+          <tr>
+            <td>{{ ticket.id }}</td>
+            <td>{{ ticket.titulo }}</td>
+            <td>{{ ticket.estado }}</td>
+            <td>{{ ticket.prioridad }}</td>
+            <td>{{ ticket.creado_en|date:"d/m/Y H:i" }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No has creado ningún ticket aún.</p>
+  {% endif %}
+  <a href="{% url 'crear_ticket' %}" class="btn btn-success mt-2">Crear nuevo ticket</a>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2>Crear nuevo ticket</h2>
+  <form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="titulo" class="form-label">Título</label>
+      <input type="text" class="form-control" id="titulo" name="titulo" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="descripcion" class="form-label">Descripción</label>
+      <textarea class="form-control" id="descripcion" name="descripcion" rows="4" required></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label for="prioridad" class="form-label">Prioridad</label>
+      <select class="form-select" id="prioridad" name="prioridad" required>
+        <option value="Baja">Baja</option>
+        <option value="Media" selected>Media</option>
+        <option value="Alta">Alta</option>
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Enviar</button>
+    <a href="{% url 'lista_tickets' %}" class="btn btn-secondary">Ver mis tickets</a>
+  </form>
+</div>
+{% endblock %}
