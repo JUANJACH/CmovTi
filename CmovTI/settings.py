@@ -1,31 +1,29 @@
 from pathlib import Path
 import os
-from dotenv import load_dotenv
-
-# Detectar entorno
-env_path = Path(__file__).resolve().parent.parent / ('.env' if os.getenv('DJANGO_ENV') == 'prod' else '.env.dev')
-print("Cargando archivo de entorno:", env_path)
-
-load_dotenv(dotenv_path=env_path)
-
-print("Variables cargadas:", dict(os.environ))
-
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
-DEBUG = os.getenv('DJANGO_DEBUG') == 'True'
-ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', 'localhost').split(',')
-
-print("SECRET_KEY:", SECRET_KEY)
-print("DEBUG:", DEBUG)
-print("ALLOWED_HOSTS:", ALLOWED_HOSTS)
-
+from dotenv import load_dotenv, find_dotenv
 
 # Base directory
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Seguridad
+# Detectar archivo de entorno según DJANGO_ENV
+env_file = ".env.prod" if os.getenv("DJANGO_ENV") == "prod" else ".env.dev"
+env_path = find_dotenv(filename=env_file, raise_error_if_not_found=False)
+
+print("Cargando archivo de entorno:", env_path or f"{env_file} no encontrado")
+
+# Cargar variables desde el archivo
+load_dotenv(dotenv_path=env_path)
+
+# Debug de variables cargadas
+print("SECRET_KEY:", os.getenv("DJANGO_SECRET_KEY"))
+print("DEBUG:", os.getenv("DJANGO_DEBUG"))
+print("ALLOWED_HOSTS:", os.getenv("DJANGO_ALLOWED_HOSTS"))
+
+# Configuraciones base
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 DEBUG = os.getenv('DJANGO_DEBUG') == 'True'
 ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', 'localhost').split(',')
+
 
 
 # Apps
