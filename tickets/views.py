@@ -6,7 +6,7 @@ from .models import Ticket
 def obtener_usuario_windows(request):
     """
     Obtiene el usuario de Windows autenticado por IIS.
-    Si el formato es DOMINIO\usuario, extrae solo el usuario.
+    Si el formato es DOMINIO\\usuario, extrae solo el usuario.
     """
     remote_user = request.META.get("REMOTE_USER", "anonimo")
     return remote_user.split("\\")[-1]
