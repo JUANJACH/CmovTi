@@ -12,6 +12,7 @@ urlpatterns = [
     ##path('quien-soy/', quien_soy),
     path('crear/', views.crear_ticket, name='crear_ticket'),
     path('mis-tickets/', views.lista_tickets, name='lista_tickets'),
+    path("diagnostico/", views.diagnostico_usuario),
 
 ]
 

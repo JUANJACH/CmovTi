@@ -2,6 +2,16 @@ import os
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from .models import Ticket
+from django.http import JsonResponse
+
+def diagnostico_usuario(request):
+    return JsonResponse({
+        "REMOTE_USER": request.META.get("REMOTE_USER"),
+        "AUTH_USER": request.META.get("AUTH_USER"),
+        "usuario": str(request.user),
+        "is_authenticated": request.user.is_authenticated,
+    })
+
 
 def obtener_usuario_windows(request):
     """
